@@ -27,14 +27,13 @@ module.exports = {
 
   createCity: (req, res) => {
     let { rating, name, countryId } = req.body;
-  console.log ('createCity')
+    console.log("createCity");
     sequelize
       .query(
-        `INSERT INTO cities (name, rating, country_id ) values ( '${name}', ${rating}, ${countryId})`
+        `INSERT INTO cities (name, rating, country_id ) values ( '${name}', ${rating}, ${countryId});`
       )
-
-      .then(() => res.status(200).send(dbRes[0]))
-      .catch(() => console.log(err));
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
   },
 
   getCities: (req, res) => {
@@ -43,8 +42,8 @@ module.exports = {
         `SELECT ci.city_id, ci.name as city, ci.rating, co.country_id, co.name as country FROM cities ci join countries co on ci.country_id = co.country_id`
       )
 
-      .then(() => res.status(200).send(dbRes[0]))
-      .catch(() => console.log(err));
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
   },
   deleteCity: (req, res) => {
     let { cities, id } = req.params;
@@ -52,7 +51,7 @@ module.exports = {
     sequelize
       .query(`DELETE FROM cities WHERE city_id = ${id}`)
 
-      .then(() => res.status(200).send(dbRes[0]))
-      .catch(() => console.log(err));
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
   },
 };
